@@ -1,0 +1,3 @@
+H:/CLionProject/sports-meet-information-manager/cmake-build-debug/CMakeFiles/sports_meet_information_manager.dir
+H:/CLionProject/sports-meet-information-manager/cmake-build-debug/CMakeFiles/edit_cache.dir
+H:/CLionProject/sports-meet-information-manager/cmake-build-debug/CMakeFiles/rebuild_cache.dir
