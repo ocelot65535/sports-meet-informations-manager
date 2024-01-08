@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Base.h"
 
 class Athlete {
@@ -7,52 +6,57 @@ public:
     std::string id;
     bool is_male;
 
-    college_type college;
-    department_type department;
-    grade_type grade;
+    Type_college college;
+    Type_department department;
+    Type_grade grade;
 
     int participate_count;
 
-    Athlete(const std::string &name, const std::string &id, bool isMale, college_type college,
-            department_type department, grade_type grade, int participateCount) : name(name), id(id), is_male(isMale),
-                                                                                  college(college),
-                                                                                  department(department), grade(grade),
-                                                                                  participate_count(participateCount) {}
+    Athlete(std::string name, std::string id, bool is_male,
+            Type_college typeCollege, Type_department typeDepartment, Type_grade typeGrade){
+        this->name = name;
+        this->id = id;
+        this->is_male = is_male;
+        this->college = typeCollege;
+        this->department = typeDepartment;
+        this->grade = typeGrade;
+        this->participate_count = 0;
+    }
 
 
-    const std::string &getName() const {
+    std::string getName(){
         return name;
     }
 
-    const std::string &getId() const {
+    std::string getId(){
         return id;
     }
 
-    bool isMale() const {
+    bool isMale(){
         return is_male;
     }
 
-    college_type getCollege() const {
+    Type_college getCollege(){
         return college;
     }
 
-    department_type getDepartment() const {
+    Type_department getDepartment(){
         return department;
     }
 
-    grade_type getGrade() const {
+    Type_grade getGrade(){
         return grade;
     }
 
-    int getParticipateCount() const {
+    int getParticipateCount(){
         return participate_count;
     }
 
-    void setName(const std::string &name) {
+    void setName(std::string name) {
         Athlete::name = name;
     }
 
-    void setId(const std::string &id) {
+    void setId(std::string id) {
         Athlete::id = id;
     }
 
@@ -60,15 +64,15 @@ public:
         is_male = isMale;
     }
 
-    void setCollege(college_type college) {
+    void setCollege(Type_college college) {
         Athlete::college = college;
     }
 
-    void setDepartment(department_type department) {
+    void setDepartment(Type_department department) {
         Athlete::department = department;
     }
 
-    void setGrade(grade_type grade) {
+    void setGrade(Type_grade grade) {
         Athlete::grade = grade;
     }
 

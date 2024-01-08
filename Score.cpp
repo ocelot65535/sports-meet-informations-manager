@@ -1,25 +1,27 @@
 #include "Athlete.cpp"
 class ScoreManager{
-public:
-    score_type type;
-
+private:
+    Type_score type;
     int score;
+public:
+    ScoreManager(Type_score typeScore, int score) {
+        this->type = typeScore;
+        this->score = score;
+    }
 
-    ScoreManager(score_type type, int score) : type(type), score(score) {}
-
-    score_type getType() const {
+    Type_score getType() {
         return type;
     }
 
-    int getScore() const {
+    int getScore() {
         return score;
     }
 
-    void setType(score_type type) {
-        ScoreManager::type = type;
+    void setType(Type_score typeScore) {
+        ScoreManager::type = typeScore;
     }
 
-    void setScore(int score) {
-        ScoreManager::score = score;
+    void setScore(int ath_score) {
+        ScoreManager::score = ath_score;
     }
 };

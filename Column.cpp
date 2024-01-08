@@ -1,43 +1,47 @@
 #include "Score.cpp"
-#include <list>
+
 class Column{
 private:
-    std::list<Athlete> list;
+    std::vector<Athlete> list;
     std::string name;
-    grade_type grade;
-    score_type type;
+    Type_grade grade;
+    Type_score type;
 public:
-    Column(const std::string &name, score_type type) : name(name), type(type) {}
+    Column(std::string columnName, Type_grade typeGrade, Type_score typeScore) {
+        this->name = columnName;
+        this->grade = typeGrade;
+        this->type = typeScore;
+    }
 
-    const std::string &getName() const {
+    std::string getName(){
         return name;
     }
 
-    score_type getType() const {
+    Type_score getType(){
         return type;
     }
 
-    void setName(const std::string &name) {
-        Column::name = name;
+    void setName(std::string columnName) {
+        Column::name = columnName;
     }
 
-    void setType(score_type type) {
-        Column::type = type;
+    void setType(Type_score typeScore) {
+        Column::type = typeScore;
     }
 
-    grade_type getGrade() const {
+    Type_grade getGrade(){
         return grade;
     }
 
-    void setGrade(grade_type grade) {
-        Column::grade = grade;
+    void setGrade(Type_grade typeGrade) {
+        Column::grade = typeGrade;
     }
 
     void addAthlete(Athlete athlete){
         list.push_back(athlete);
     }
 
-    const std::list<Athlete> &getList() const {
+    std::vector<Athlete> getList() const {
         return list;
     }
 };

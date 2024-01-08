@@ -1,7 +1,10 @@
 #ifndef DSA_PROJ1_BASE_H
 #define DSA_PROJ1_BASE_H
+#include <vector>
+#include <list>
+#include <iostream>
 
-enum space_type {
+enum Type_space {
     none,
     track1,
     track2,
@@ -10,7 +13,7 @@ enum space_type {
     field2
 };
 
-enum college_type{
+enum Type_college{
     engineering,
     literature,
     science,
@@ -21,13 +24,13 @@ enum college_type{
     medicine
 };
 
-enum department_type {
+enum Type_department {
     none_department,
     computer_science,
     data_science
 };
 
-enum grade_type {
+enum Type_grade {
     none_grade,
     grade1,
     grade2,
@@ -37,12 +40,12 @@ enum grade_type {
     doctor
 };
 
-enum score_type{
+enum Type_score{
     none_score,
     time_score,
     distance_score,
     number_score
-}e;
+};
 
 
 #endif //DSA_PROJ1_BASE_H
