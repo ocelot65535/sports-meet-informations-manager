@@ -1,14 +1,16 @@
-#include "Column.cpp"
+#include "Manager.cpp"
 
 int main() {
-    std::list<Column> all_columns;
+    system("chcp 65001");
+    Manager * manager = new Manager();
+
     std::string name = "100m";
     Type_grade gradeType = Type_grade::grade2;
     Type_score scoreType = Type_score::time_score;
 
     Column * race_100m =  new Column(name, gradeType, scoreType);
 
-    std::string ath_name = "songyunxiao";
+    std::string ath_name = "某同学";
     std::string id = "2022612001";
     bool isMale = true;
 
@@ -22,10 +24,12 @@ int main() {
 
     race_100m->addAthlete(*athlete1);
 
-    std::vector<Athlete> list_ath_100m = race_100m->getList();
+    manager->add_column(*race_100m);
+    manager->add_athlete(*athlete1);
+    manager->check_column();
+    manager->check_athlete();
 
-    for(int i=0; i < list_ath_100m.size();i++){
-        Athlete ath = list_ath_100m[i];
-        std::cout << ath.getName() << std::endl;
-    }
+    manager->search_incolumn(ath_name);
+
+
 }

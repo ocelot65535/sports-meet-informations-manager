@@ -7,4 +7,5 @@ add_executable(DSA_proj1 main.cpp
         Athlete.cpp
         Base.h
         Score.cpp
-        Column.cpp)
+        Column.cpp
+        Manager.cpp)
