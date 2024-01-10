@@ -1,27 +1,19 @@
-#include "Athlete.cpp"
-class ScoreManager{
-private:
-    Type_score type;
-    int score;
-public:
-    ScoreManager(Type_score typeScore, int score) {
-        this->type = typeScore;
-        this->score = score;
-    }
+#include "Score.h"
+ScoreManager::ScoreManager(Type_score typeScore, std::string name, double score) {
+    this->type = typeScore;
+    this->column_name = name;
+    this->score = score;
+}
+//-------------------------------------------------
+Type_score ScoreManager::getType() {
+    return type;
+}
 
-    Type_score getType() {
-        return type;
-    }
+std::string ScoreManager::getColumnName() {
+    return column_name;
+}
 
-    int getScore() {
-        return score;
-    }
 
-    void setType(Type_score typeScore) {
-        ScoreManager::type = typeScore;
-    }
-
-    void setScore(int ath_score) {
-        ScoreManager::score = ath_score;
-    }
-};
+double ScoreManager::getScore() {
+    return score;
+}

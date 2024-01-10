@@ -8,4 +8,8 @@ add_executable(DSA_proj1 main.cpp
         Base.h
         Score.cpp
         Column.cpp
-        Manager.cpp)
+        Manager.cpp
+        Athlete.h
+        Column.h
+        Manager.h
+        Score.h)

@@ -1,83 +1,60 @@
-#include "Base.h"
+#include "Athlete.h"
 
-class Athlete {
-public:
-    std::string name;
-    std::string id;
-    bool is_male;
+Athlete::Athlete(int UID, std::string name, std::string id, bool is_male,
+        Type_college typeCollege, Type_department typeDepartment, Type_grade typeGrade){
+    this->UID = UID;
+    this->name = name;
+    this->id = id;
+    this->is_male = is_male;
+    this->college = typeCollege;
+    this->department = typeDepartment;
+    this->grade = typeGrade;
+    this->participate_count = 0;
+}
+//-------------------------------------------------
+int Athlete::getUID(){
+    return UID;
+}
+//-------------------------------------------------
+void Athlete::addScore(Type_score typeScore, std::string column_name, double score){
+    ScoreManager newscore(typeScore, column_name, score);
+    this->score_list.push_back(newscore);
+}
 
-    Type_college college;
-    Type_department department;
-    Type_grade grade;
+std::vector<ScoreManager> Athlete::getScoreList(){
+    return score_list;
+}
 
-    int participate_count;
+//-------------------------------------------------
+std::string Athlete::getName(){
+    return name;
+}
 
-    Athlete(std::string name, std::string id, bool is_male,
-            Type_college typeCollege, Type_department typeDepartment, Type_grade typeGrade){
-        this->name = name;
-        this->id = id;
-        this->is_male = is_male;
-        this->college = typeCollege;
-        this->department = typeDepartment;
-        this->grade = typeGrade;
-        this->participate_count = 0;
-    }
+std::string Athlete::getId(){
+    return id;
+}
 
+bool Athlete::isMale(){
+    return is_male;
+}
 
-    std::string getName(){
-        return name;
-    }
+Type_college Athlete::getCollege(){
+    return college;
+}
 
-    std::string getId(){
-        return id;
-    }
+Type_department Athlete::getDepartment(){
+    return department;
+}
 
-    bool isMale(){
-        return is_male;
-    }
+Type_grade Athlete::getGrade(){
+    return grade;
+}
 
-    Type_college getCollege(){
-        return college;
-    }
+int Athlete::getParticipateCount(){
+    return participate_count;
+}
+//-------------------------------------------------
 
-    Type_department getDepartment(){
-        return department;
-    }
-
-    Type_grade getGrade(){
-        return grade;
-    }
-
-    int getParticipateCount(){
-        return participate_count;
-    }
-
-    void setName(std::string name) {
-        Athlete::name = name;
-    }
-
-    void setId(std::string id) {
-        Athlete::id = id;
-    }
-
-    void setIsMale(bool isMale) {
-        is_male = isMale;
-    }
-
-    void setCollege(Type_college college) {
-        Athlete::college = college;
-    }
-
-    void setDepartment(Type_department department) {
-        Athlete::department = department;
-    }
-
-    void setGrade(Type_grade grade) {
-        Athlete::grade = grade;
-    }
-
-    void setParticipateCount(int participateCount) {
-        participate_count = participateCount;
-    }
-};
-
+void Athlete::setParticipateCount(int participateCount) {
+    participate_count = participateCount;
+}

@@ -3,6 +3,9 @@
 #include <vector>
 #include <list>
 #include <iostream>
+#include <unordered_map>
+
+#define MAX_PARTICIPATE_COUNT 3
 
 enum Type_space {
     none,
@@ -14,6 +17,7 @@ enum Type_space {
 };
 
 enum Type_college{
+    none_college,
     engineering,
     literature,
     science,
