@@ -15,6 +15,8 @@ private:
 
     int participate_count;
 
+    int points;
+
     std::vector<ScoreManager> score_list;
 public:
     Athlete(int UID, std::string name, std::string id, bool is_male,
@@ -41,6 +43,10 @@ public:
     Type_grade getGrade();
 
     int getParticipateCount();
+
+    int getPoints();
+
+    void setPoints(int points);
     //-------------------------------------------------
 
     void setParticipateCount(int participateCount);

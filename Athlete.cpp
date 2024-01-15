@@ -10,6 +10,7 @@ Athlete::Athlete(int UID, std::string name, std::string id, bool is_male,
     this->department = typeDepartment;
     this->grade = typeGrade;
     this->participate_count = 0;
+    this->points = 0;
 }
 //-------------------------------------------------
 int Athlete::getUID(){
@@ -53,6 +54,15 @@ Type_grade Athlete::getGrade(){
 int Athlete::getParticipateCount(){
     return participate_count;
 }
+
+int Athlete::getPoints(){
+    return points;
+}
+
+void Athlete::setPoints(int points) {
+    this->points = points;
+}
+
 //-------------------------------------------------
 
 void Athlete::setParticipateCount(int participateCount) {

@@ -14,7 +14,11 @@ int main() {
     manager->signup_score("2022612001", "100m", 10.0);
     manager->signup_score("2022612002", "100m", 9.8);
 
-    manager->signup_athlete_remove("2022612001", "100m");
+    manager->check_college(Type_college::engineering);
+
+    manager->check_athlete("2022612001");
 
     manager->check_column("100m");
+    manager->save(*manager);
+    manager->generate();
 }

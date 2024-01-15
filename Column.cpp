@@ -51,6 +51,10 @@ std::string Column::getName(){
     return name;
 }
 
+bool Column::isMale(){
+    return ismale;
+}
+
 Type_score Column::getScoreType(){
     return type;
 }
@@ -67,4 +71,43 @@ std::vector<int> Column::getATHList(){
 
 void Column::addScore(int ath_uid, double score) {
     score_map[ath_uid] = score;
+}
+
+std::unordered_map<int, double> Column::getScoreMap(){
+    return score_map;
+}
+
+std::vector<std::pair<int, double>> Column::sort_bigger() {
+    std::vector<std::pair<int, double>> pairs(score_map.begin(), score_map.end());
+    // 冒泡排序
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        for (size_t j = 0; j < pairs.size() - 1 - i; ++j) {
+            if (pairs[j].second < pairs[j + 1].second) {
+                std::swap(pairs[j], pairs[j + 1]);
+            }
+        }
+    }
+    return pairs;
+}
+
+std::vector<std::pair<int, double>> Column::sort_smaller() {
+    std::vector<std::pair<int, double>> pairs(score_map.begin(), score_map.end());
+    // 冒泡排序
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        for (size_t j = 0; j < pairs.size() - 1 - i; ++j) {
+            if (pairs[j].second > pairs[j + 1].second) {
+                std::swap(pairs[j], pairs[j + 1]);
+            }
+        }
+    }
+    return pairs;
+}
+
+
+Type_space Column::getLocation(){
+    return location;
+}
+
+void Column::setLocation(Type_space location){
+    this->location = location;
 }

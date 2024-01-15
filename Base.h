@@ -4,16 +4,21 @@
 #include <list>
 #include <iostream>
 #include <unordered_map>
-
+#include <fstream>
+#include <algorithm>
+#include <unordered_set>
 #define MAX_PARTICIPATE_COUNT 3
+
+enum Type_sport{
+    track,
+    field
+};
 
 enum Type_space {
     none,
-    track1,
-    track2,
-    track3,
-    field1,
-    field2
+    space1,
+    space2,
+    space3
 };
 
 enum Type_college{

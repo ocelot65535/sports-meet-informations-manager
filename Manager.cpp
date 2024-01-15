@@ -78,7 +78,34 @@ void Manager::check_column(std::string column_name){
 
 }
 
+void Manager::check_college(Type_college typeCollege){
+    std::cout << "学院：" << typeCollege << std::endl;
+    for (int i = 0; i < list_athletes.size(); i++){
+        Athlete * athlete = &list_athletes[i];
+        if (athlete->getCollege() == typeCollege){
+            std::cout << athlete->getName() << std::endl;
+        }
+    }
+}
 
+void Manager::check_athlete(std::string ath_id) {
+    Athlete * athlete = find_athlete_byUID(athlete_map[ath_id]);
+    if (athlete != NULL){
+        std::cout << "姓名：" << athlete->getName() << std::endl;
+        std::cout << "学号：" << athlete->getId() << std::endl;
+        std::cout << "参赛项目：" << std::endl;
+        std::vector<ScoreManager> score_list = athlete->getScoreList();
+        for (int i = 0; i < score_list.size(); i++){
+            std::cout << score_list[i].getColumnName() << "\t" << score_list[i].getScore() << std::endl;
+        }
+    }else{
+        std::cout << "check_athlete运动员不存在" << std::endl;
+    }
+}
+
+void Manager::check_totalscore() {
+    return;
+}
 //-------------------------------------------------
 void Manager::add_athlete(Athlete athlete) {
     list_athletes.push_back(athlete);
@@ -86,16 +113,6 @@ void Manager::add_athlete(Athlete athlete) {
 
 void Manager::add_column(Column column) {
     list_columns.push_back(column);
-}
-
-Athlete Manager::search_athlete_byid(std::string id) {
-    for(int i=0; i < list_athletes.size(); i++){
-        Athlete athlete = list_athletes[i];
-        if(athlete.getId() == id){
-            return athlete;
-        }
-    }
-    return Athlete(0,"","",false,Type_college::none_college,Type_department::none_department,Type_grade::none_grade);
 }
 //-------------------------------------------------
 
@@ -127,4 +144,181 @@ Column * Manager::find_column_byUID(int uid){
         }
     }
     return NULL;
+}
+
+//-------------------------------------------------
+std::vector<Column> Manager::getColumnList() {
+    return list_columns;
+}
+
+std::vector<Athlete> Manager::getAthleteList(){
+    return list_athletes;
+}
+
+
+void Manager::save(Manager manager){
+    std::ofstream file("backup.txt",std::ios::out | std::ios::binary);
+    if (file.is_open()) {
+        file << "运动员" << std::endl;
+        file << list_athletes.size() << std::endl;
+        for (int i=0;i<list_athletes.size();i++){
+            Athlete * ath = &list_athletes[i];
+            file << ath->getName() << std::endl;
+            file << ath->getId() << std::endl;
+            if (ath->isMale()){
+                file << "男" << std::endl;
+            }else{
+                file << "女" << std::endl;
+            }
+            file << ath->getCollege() << std::endl;
+            file << ath->getDepartment() << std::endl;
+            file << ath->getGrade() << std::endl;
+            file << ath->getParticipateCount() << std::endl;
+            for (int j=0;j<ath->getScoreList().size();j++){
+                ScoreManager scoreManager = ath->getScoreList()[j];
+                file << scoreManager.getType() << std::endl;
+                file << scoreManager.getColumnName() << std::endl;
+                file << scoreManager.getScore() << std::endl;
+            }
+        }
+
+        file << "运动项目" << std::endl;
+        file << list_columns.size() << std::endl;
+        for (int m=0;m<list_columns.size();m++){
+            Column * col = &list_columns[m];
+            file << col->getName() << std::endl;
+            if (col->isMale()){
+                file << "男" << std::endl;
+            }else{
+                file << "女" << std::endl;
+            }
+            file << col->getGrade() << std::endl;
+            file << col->getScoreType() << std::endl;
+            file << col->getATHList().size() << std::endl;
+            for (int n=0;n<col->getATHList().size();n++){
+                file << col->getATHList()[n] << std::endl;
+                file << col->getScoreMap()[col->getATHList()[n]] << std::endl;
+            }
+        }
+        std::cout << "成功写入文件！" << std::endl;
+        file.close();
+    } else {
+        std::cerr << "无法打开文件" << std::endl;
+    }
+}
+
+void Manager::addupScore(int uid) {
+    Column * column = find_column_byUID(uid);
+    if (column->getATHList().size()<4){
+        std::cout << "没有足够的成员！" << std::endl;
+        return;
+    }
+    if (column->getATHList().size()>6){
+        int index = 5;
+        std::vector<std::pair<int, double>> pairs;
+        pairs = Type_score::time_score == column->getScoreType() ? column->sort_smaller() : column->sort_bigger();
+        for (int i=0; i< index; i++) {
+            Athlete * ath = find_athlete_byUID(pairs[i].first);
+            switch (i+1) {
+                case 1:
+                    ath->setPoints(ath->getPoints() + 7);
+                    break;
+                case 2:
+                    ath->setPoints(ath->getPoints() + 5);
+                    break;
+                case 3:
+                    ath->setPoints(ath->getPoints() + 3);
+                    break;
+                case 4:
+                    ath->setPoints(ath->getPoints() + 2);
+                    break;
+                case 5:
+                    ath->setPoints(ath->getPoints() + 1);
+                    break;
+            }
+        }
+        return;
+    }
+    if (column->getATHList().size()>4){
+        int index = 3;
+        std::vector<std::pair<int, double>> pairs;
+        pairs = Type_score::time_score == column->getScoreType() ? column->sort_smaller() : column->sort_bigger();
+        for (int i=0; i< index; i++) {
+            Athlete * ath = find_athlete_byUID(pairs[i].first);
+            switch (i+1) {
+                case 1:
+                    ath->setPoints(ath->getPoints() + 5);
+                    break;
+                case 2:
+                    ath->setPoints(ath->getPoints() + 3);
+                    break;
+                case 3:
+                    ath->setPoints(ath->getPoints() + 2);
+                    break;
+            }
+        }
+        return;
+    }
+}
+
+void Manager::generate() {
+    std::ofstream file("result.txt",std::ios::out | std::ios::binary);
+    if (file.is_open()){
+        // 假设每个场地每天有一个时间段可以安排项目
+        const int timeSlotsPerDay = 1;
+        // 运动员在每个时间段是否已经安排了项目
+        std::unordered_map<int, std::unordered_set<int>> athleteTimeSlotMap;
+        // 日程表，每个场地的每个时间段对应一个项目UID
+        std::vector<std::vector<int>> schedule(3, std::vector<int>(list_columns.size(), -1));
+
+        for (auto& column : list_columns) {
+            std::vector<int> athletes = column.getATHList();
+
+            bool scheduled = false;
+            for (int timeSlot = 0; timeSlot < schedule[0].size() && !scheduled; ++timeSlot) {
+                // 检查所有参与该项目的运动员在当前时间段是否空闲
+                bool allAthletesAvailable = true;
+                for (int athleteUID : athletes) {
+                    if (athleteTimeSlotMap[athleteUID].count(timeSlot) > 0) {
+                        allAthletesAvailable = false;
+                        break;
+                    }
+                }
+
+                if (allAthletesAvailable) {
+                    for (int spaceIndex = 0; spaceIndex < 3; ++spaceIndex) {
+                        if (schedule[spaceIndex][timeSlot] == -1) {
+                            schedule[spaceIndex][timeSlot] = column.getUID();
+                            column.setLocation(static_cast<Type_space>(spaceIndex + 1));
+                            // 标记参与运动员的时间段已被占用
+                            for (int athleteUID : athletes) {
+                                athleteTimeSlotMap[athleteUID].insert(timeSlot);
+                            }
+                            scheduled = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!scheduled) {
+                std::cout << "无法为项目 " << column.getName() << " 安排时间和场地" << std::endl;
+            }
+        }
+
+        // 打印日程表
+        for (int spaceIndex = 0; spaceIndex < 3; ++spaceIndex) {
+            file << "场地 " << spaceIndex + 1 << ":" << std::endl;
+            for (int timeSlot = 0; timeSlot < schedule[spaceIndex].size(); ++timeSlot) {
+                int columnUID = schedule[spaceIndex][timeSlot];
+                if (columnUID != -1) {
+                    Column *column = find_column_byUID(columnUID);
+                    file << "时间段 " << timeSlot << ": " << column->getName() << std::endl;
+                } else {
+                    file << "时间段 " << timeSlot << ": 空闲" << std::endl;
+                }
+            }
+        }
+    }else{
+        std::cerr << "无法打开文件" << std::endl;
+    }
 }
